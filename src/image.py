@@ -6,17 +6,21 @@ import vtk
 def readImage(filename):
   return 1
 
+
 # write a SimpleITK image to disk
 def writeImage(image, filename):
   return 1
+
 
 # threshold a SimpleITK image
 def threshold(image, lower, upper, valueIn, valueOut):
   return 1
 
+
 # convert a SimpleITK image to a vtkImageData
 def sitkToVtk(image):
   return 1
+
 
 # smooth a vtkImageData
 def smoothVTKImage(image, sigma):
