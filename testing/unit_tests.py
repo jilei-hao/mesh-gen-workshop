@@ -166,6 +166,62 @@ def test_e4_t1(data):
   th.printPassingMessage("test_e4_t1 passed: Creaseless Mesh for leaflets is correct")
 
 
+def test_e4_t2(data):
+  result = ex.createMultiLabelCreaselessMeshFused(data["image"], [[1, 2], [3]], 4)
+
+  # Check if the output is a vtkPolyData
+  if (type(result) != vtk.vtkPolyData):
+    th.printFailingMessage("test_e4_t2 failed: Output is not a vtkPolyData")
+    return False
+  
+  # Check if the output has points
+  if (result.GetNumberOfPoints() == 0):
+    th.printFailingMessage("test_e4_t2 failed: Output has no points")
+    return False
+  
+  # write out the mesh
+  mh.writeMesh(result, os.path.join(OUTPUT_DIR, 'e4_multi-label-1-2-fused.vtp'))
+
+  th.printPassingMessage("test_e4_t2 passed: Creaseless Mesh for leaflets is correct")
+
+def test_e4_t3(data):
+  result = ex.createMultiLabelCreaselessMeshFused(data["image"], [[1], [2, 3]], 4)
+
+  # Check if the output is a vtkPolyData
+  if (type(result) != vtk.vtkPolyData):
+    th.printFailingMessage("test_e4_t3 failed: Output is not a vtkPolyData")
+    return False
+  
+  # Check if the output has points
+  if (result.GetNumberOfPoints() == 0):
+    th.printFailingMessage("test_e4_t3 failed: Output has no points")
+    return False
+  
+  # write out the mesh
+  mh.writeMesh(result, os.path.join(OUTPUT_DIR, 'e4_multi-label-2-3-fused.vtp'))
+
+  th.printPassingMessage("test_e4_t3 passed: Creaseless Mesh for leaflets is correct")
+
+
+def test_e4_t4(data):
+  result = ex.createMultiLabelCreaselessMeshFused(data["image"], [[2], [1, 3]], 4)
+
+  # Check if the output is a vtkPolyData
+  if (type(result) != vtk.vtkPolyData):
+    th.printFailingMessage("test_e4_t4 failed: Output is not a vtkPolyData")
+    return False
+  
+  # Check if the output has points
+  if (result.GetNumberOfPoints() == 0):
+    th.printFailingMessage("test_e4_t4 failed: Output has no points")
+    return False
+  
+  # write out the mesh
+  mh.writeMesh(result, os.path.join(OUTPUT_DIR, 'e4_multi-label-1-3-fused.vtp'))
+  
+  th.printPassingMessage("test_e4_t4 passed: Creaseless Mesh for leaflets is correct")
+
+
 def main():
   testData = {}
   testData["image"] = ih.readImage(os.path.join(DATA_DIR, 'srd.nii.gz'))
@@ -182,6 +238,10 @@ def main():
   test_e3_t2(testData)
   test_e3_t3(testData)
   test_e4_t1(testData)
+  test_e4_t2(testData)
+  test_e4_t3(testData)
+  test_e4_t4(testData)
+  
   print("\n\n")
 
 

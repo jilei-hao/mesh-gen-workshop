@@ -52,3 +52,16 @@ def createMultiLabelCreaselessMesh(image, leafletLabels, rootLabel):
     vtkPolyData: a multilabel mesh with creaseless leaflets
   """
   pass
+
+
+# Exercise 4 Bonus: Create a Multilabel Pipeline with fused leaflets
+def createMultiLabelCreaselessMeshFused(image, leafletLabelsGroup, rootLabel):
+  """
+  Args:
+    image (SimpleITK.Image): Input multi-label image
+    leafletLabels (list): List of Group of labels for leaflets e.g. [[1], [2, 3]]
+    rootLabel (int): Label for root
+  Output:
+    vtkPolyData: a multilabel mesh with creaseless leaflets
+  """
+  pass
