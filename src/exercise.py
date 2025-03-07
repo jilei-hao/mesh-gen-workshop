@@ -13,7 +13,11 @@ def getUniqueLabels(image):
   Output:
     list: List of unique labels in the image
   """
-  pass
+  # get unique labels in the image
+  unique_labels = ih.getPixels(image)
+  unique_labels = unique_labels.flatten()
+  unique_labels = list(set(unique_labels))
+  return unique_labels
 
 
 
@@ -27,7 +31,20 @@ def mergeLabel(image, labelsToMerge):
   Output:
     SimpleITK.Image: Binary image with merged labels as 1 and everything else as 0
   """
-  pass
+  # merge the labels in the image based on the list
+  labelImages = []
+  for label in labelsToMerge:
+    labelImages.append(ih.threshold(image, label, label, 1, 0))
+  
+  # add all label images up
+  merged_image = labelImages[0]
+  for i in range(1, len(labelImages)):
+    merged_image = ih.addImages(merged_image, labelImages[i])
+
+  # threshold the merged image
+  merged_image = ih.threshold(merged_image, 1, 1, 1, 0)
+  return merged_image
+
 
 
 # Exercise 3: Create Creaseless Leaflets Models
@@ -41,7 +58,16 @@ def createCreaselessLeaflets(image, leafletLabel, rootLabel):
     vtkPolyData: Mesh for the merged leaflets
   """
 
-  pass
+  # merge the leaflets
+  leafletImage = mergeLabel(image, [leafletLabel, rootLabel])
+
+  # get a vtkImageData from the leaflet image
+  leafletVTK = ih.sitkToVtk(leafletImage)
+
+  # get the mesh from the vtkImageData
+  leafletMesh = mh.getMeshFromVTKImage(leafletVTK)
+
+  return leafletMesh
 
 
 # Exercise 4: Create a Multilabel Pipeline
@@ -54,7 +80,14 @@ def createMultiLabelCreaselessMesh(image, leafletLabels, rootLabel):
   Output:
     vtkPolyData: a multilabel mesh with creaseless leaflets
   """
-  pass
+  # create a list of meshes for each leaflet
+  meshes = []
+  for leafletLabel in leafletLabels:
+    meshes.append(createCreaselessLeaflets(image, leafletLabel, rootLabel))
+
+  # append all the meshes
+  appendedMesh = mh.appendMeshes(meshes)
+  return appendedMesh
 
 
 # Exercise 4 Bonus: Create a Multilabel Pipeline with fused leaflets
@@ -67,4 +100,21 @@ def createMultiLabelCreaselessMeshFused(image, leafletLabelsGroup, rootLabel):
   Output:
     vtkPolyData: a multilabel mesh with creaseless leaflets
   """
-  pass
+  # merge leaflets in each group
+  mergedLeaflets = []
+
+  for leafletLabels in leafletLabelsGroup:
+    mergedLeaflets.append(mergeLabel(image, leafletLabels))
+
+  rootImage = ih.threshold(image, rootLabel, rootLabel, 1, 0)
+
+  # merge merged leaflets and root
+  meshes = []
+  for mergedLeaflet in mergedLeaflets:
+    # note that createCreaselessLeaflets creates wrong result, why?
+    withRoot = ih.addImages(mergedLeaflet, rootImage)
+    meshes.append(mh.getMeshFromVTKImage(ih.sitkToVtk(withRoot)))
+
+  # append all the meshes
+  appendedMesh = mh.appendMeshes(meshes)
+  return appendedMesh
