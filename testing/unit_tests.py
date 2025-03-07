@@ -95,7 +95,7 @@ def test_e3_t1(data):
   result1 = ex.createCreaselessLeaflets(data["image"], 1, 4)
 
   # Check if the output is a vtkPolyData
-  if (type(result1) != vtk.vtkPolyData):
+  if not isinstance(result1, vtk.vtkPolyData):
     th.printFailingMessage("test_e3_t1 failed: Output is not a vtkPolyData")
     return False
   
@@ -113,7 +113,7 @@ def test_e3_t2(data):
   result2 = ex.createCreaselessLeaflets(data["image"], 2, 4)
 
   # Check if the output is a vtkPolyData
-  if (type(result2) != vtk.vtkPolyData):
+  if not isinstance(result2, vtk.vtkPolyData):
     th.printFailingMessage("test_e3_t2 failed: Output is not a vtkPolyData")
     return False
   
@@ -132,7 +132,7 @@ def test_e3_t3(data):
   result3 = ex.createCreaselessLeaflets(data["image"], 3, 4)
 
   # Check if the output is a vtkPolyData
-  if (type(result3) != vtk.vtkPolyData):
+  if not isinstance(result3, vtk.vtkPolyData):
     th.printFailingMessage("test_e3_t3 failed: Output is not a vtkPolyData")
     return False
   
@@ -151,7 +151,7 @@ def test_e4_t1(data):
   result = ex.createMultiLabelCreaselessMesh(data["image"], [1, 2, 3], 4)
 
   # Check if the output is a vtkPolyData
-  if (type(result) != vtk.vtkPolyData):
+  if not isinstance(result, vtk.vtkPolyData):
     th.printFailingMessage("test_e4_t1 failed: Output is not a vtkPolyData")
     return False
   
@@ -170,7 +170,7 @@ def test_e4_t2(data):
   result = ex.createMultiLabelCreaselessMeshFused(data["image"], [[1, 2], [3]], 4)
 
   # Check if the output is a vtkPolyData
-  if (type(result) != vtk.vtkPolyData):
+  if not isinstance(result, vtk.vtkPolyData):
     th.printFailingMessage("test_e4_t2 failed: Output is not a vtkPolyData")
     return False
   
@@ -188,7 +188,7 @@ def test_e4_t3(data):
   result = ex.createMultiLabelCreaselessMeshFused(data["image"], [[1], [2, 3]], 4)
 
   # Check if the output is a vtkPolyData
-  if (type(result) != vtk.vtkPolyData):
+  if not isinstance(result, vtk.vtkPolyData):
     th.printFailingMessage("test_e4_t3 failed: Output is not a vtkPolyData")
     return False
   
@@ -207,7 +207,7 @@ def test_e4_t4(data):
   result = ex.createMultiLabelCreaselessMeshFused(data["image"], [[2], [1, 3]], 4)
 
   # Check if the output is a vtkPolyData
-  if (type(result) != vtk.vtkPolyData):
+  if not isinstance(result, vtk.vtkPolyData):
     th.printFailingMessage("test_e4_t4 failed: Output is not a vtkPolyData")
     return False
   
@@ -241,7 +241,7 @@ def main():
   test_e4_t2(testData)
   test_e4_t3(testData)
   test_e4_t4(testData)
-  
+
   print("\n\n")
 
 

@@ -1,6 +1,9 @@
 import image_helpers as ih
 import mesh_helpers as mh
 import commons
+import os
+
+DIR_OUTPUT = commons.getOutputDirectory()
 
 # Exercise 1: Get a list of unique labels from a image (including background)
 def getUniqueLabels(image):
