@@ -68,3 +68,26 @@ def createMultiLabelCreaselessMeshFused(image, leafletLabelsGroup, rootLabel):
     vtkPolyData: a multilabel mesh with creaseless leaflets
   """
   pass
+
+# Exercise 5: Smooth the mesh with iteration and passband
+def smoothMesh(mesh, iterations, passband):
+  """
+  Args:
+    mesh (vtkPolyData): Input mesh
+    iterations (int): Number of smoothing iterations
+    passband (float): Passband for smoothing
+  Output:
+    vtkPolyData: Smoothed mesh
+  """
+  pass
+
+# Exercise 6: Decimate the mesh with target reduction
+def decimateMesh(mesh, targetReduction):
+  """
+  Args:
+    mesh (vtkPolyData): Input mesh
+    targetReduction (float): Target reduction for decimation
+  Output:
+    vtkPolyData: Decimated mesh
+  """
+  pass
